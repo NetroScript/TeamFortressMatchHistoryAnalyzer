@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>View Statistics about your TF2 Games</title>
+    <link href="css/Chart.min.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Material Icons" rel="stylesheet" type="text/css">
+    <script src="js/Chart.min.js"></script>
+    <script src="js/chartjs-plugin-datalabels.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <section class="content centercontent">
+            <section class="upload">
+                <div>
+                    <h2>Upload your downloaded HTML Page with the button below:</h2>
+                    <input class="button centercontent" id="upload" type=file accept="text/html">
+                </div>
+
+            </section>
+            <section class="statistics centercontent">
+                <div>
+                    <h3>General Games Played:</h3>
+                    <div class="centercontent">
+                        <canvas id="generalGames" width="600" height="400"></canvas>
+                    </div>
+                    <h2 id="mode">The following statistics will be MyM Competitive only. And still include abandoned games (as
+                        long as there is data for them)</h2>
+                    <h3>Games Played per Day:</h3>
+                    <div class="centercontent">
+                        <canvas id="gamesDay" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Found Games by Time:</h3>
+                    <div class="centercontent">
+                        <canvas id="gamesTime" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Classes played (out circle is total, inner if the class was played as the only one):</h3>
+                    <div class="centercontent">
+                        <canvas id="classesPlayed" width="600" height="600"></canvas>
+                    </div>
+                    <h3>Maps played:</h3>
+                    <div class="centercontent">
+                        <canvas id="mapsPlayed" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Total Medals:</h3>
+                    <div class="centercontent">
+                        <canvas id="medalsEarned" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Server Locations:</h3>
+                    <div class="centercontent">
+                        <canvas id="serverLocations" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Match Durations (ignoring startup + ready up time):</h3>
+                    <div class="centercontent">
+                        <canvas id="matchDurations" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Queue Durations (only found games):</h3>
+                    <div class="centercontent">
+                        <canvas id="queueDurations" width="600" height="400"></canvas>
+                    </div>
+                    <h3>MMR Gain/Loss:</h3>
+                    <div class="centercontent">
+                        <canvas id="mmrChanges" width="600" height="400"></canvas>
+                    </div>
+                    <h3>Additional Text based stats:</h3>
+                    <div class="content">
+                       <div class="entry">
+                           <div class="descr">Average Damage (all classes): </div>
+                           <div class="cont" id="averageDamage"></div>
+                       </div>
+                       <div class="entry">
+                            <div class="descr">Most Damage (all classes): </div>
+                            <div class="cont" id="mostDamage"></div>
+                        </div>
+                       <div class="entry">
+                           <div class="descr">Average Kills (all classes): </div>
+                           <div class="cont" id="averageKills"></div>
+                       </div>
+                       <div class="entry">
+                            <div class="descr">Most Kills (all classes): </div>
+                            <div class="cont" id="mostKills"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average Deaths (all classes): </div>
+                            <div class="cont" id="averageDeaths"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Most Deaths (all classes): </div>
+                            <div class="cont" id="mostDeaths"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average K/D: </div>
+                            <div class="cont" id="averageKD"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average Heals (medic only): </div>
+                            <div class="cont" id="averageHeals"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Most Heals (medic only): </div>
+                            <div class="cont" id="mostHeals"></div>
+                        </div>
+                       <div class="entry">
+                           <div class="descr">Average Score: </div>
+                           <div class="cont" id="averageScore"></div>
+                       </div>
+                       <div class="entry">
+                            <div class="descr">Highest Score: </div>
+                            <div class="cont" id="mostScore"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average Ping: </div>
+                            <div class="cont" id="averagePing"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Highest Ping: </div>
+                            <div class="cont" id="highPing"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Lowest Ping: </div>
+                            <div class="cont" id="lowPing"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Games won: </div>
+                            <div class="cont" id="gamesWon"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Games lost: </div>
+                            <div class="cont" id="gamesLost"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average MMR gained: </div>
+                            <div class="cont" id="averageMMRGain"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Most MMR gained: </div>
+                            <div class="cont" id="mostMMRGain"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average MMR lost: </div>
+                            <div class="cont" id="averageMMRLoss"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Most MMR lost: </div>
+                            <div class="cont" id="mostMMRLoss"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Games with a bot: </div>
+                            <div class="cont" id="gamesBot"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Longest Queuetime (where a game was found) in minutes: </div>
+                            <div class="cont" id="longestQueue"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Shortest Queuetime (where a game was found) in minutes: </div>
+                            <div class="cont" id="shortestQueue"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average Queuetime (where a game was found) in minutes: </div>
+                            <div class="cont" id="averageQueue"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Longest Game time (including waiting for ready up, ...) in minutes: </div>
+                            <div class="cont" id="longestWait"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Shortest Game time (including waiting for ready up, ...) in minutes: </div>
+                            <div class="cont" id="shortestWait"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Average Game time (including waiting for ready up, ...) in minutes: </div>
+                            <div class="cont" id="averageWait"></div>
+                        </div>
+                        <div class="entry">
+                            <div class="descr">Games found during the Matchmaking Beta: </div>
+                            <div class="cont" id="matchmakingBeta"></div>
+                        </div>
+                    </div>
+                    <div class="button switch" id="switchmode">Switch Competitive with Casual</div>
+                </div>
+
+            </section>
+        </section>
+        <section class="divider"></section>
+        <section class="uploadhelp">
+            <div class="content">
+                    If you don't know how to download the data which you need to upload here, go to <a href="https://steamcommunity.com/my/profile/">your Steam Profile</a>. Then click on games (on the right), scroll to TF2 and click "Personal Game Data". Next go to the Tab "Match History". This Script needs an English language for the Match Information, meaning if you don't have your language set to English, do it for the duration of "scraping" the information.
+                    Then either keep clicking on "Load More" or open your console (Chrome -> F12) and paste in the following:
+                    <pre>
+clear = setInterval(()=>{
+    if(document.getElementById("load_more_button") != null && window.getComputedStyle(document.getElementById("load_more_button")).display != "none" && window.getComputedStyle(document.getElementById("load_more_button")).visibility != "hidden"){
+        ElementsContainerHistory_LoadMore();
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+}, 1200)
+                    </pre> 
+                    Wait until all information is loaded (the script stops automatically, it needs about 8 minutes for me). Then save the website (using STRG+S) and import that saved HTML page into this script. Should you want to cancel the automatic page load type the following in console:
+                    <pre>
+clearInterval(clear);
+                    </pre> 
+            </div>
+        </section>
+        <section class="github">
+                <p>
+                    <a href="https://github.com/NetroScript/TeamFortressMatchHistoryAnalyzer">View the github repository</a>
+                    <a class="github-button" href="https://github.com/NetroScript/TeamFortressMatchHistoryAnalyzer" data-icon="octicon-star"
+                        data-size="large" data-show-count="true" aria-label="Star NetroScript/TeamFortressMatchHistoryAnalyzer on GitHub">Star</a>
+                    <a class="github-button" href="https://github.com/NetroScript/TeamFortressMatchHistoryAnalyzer/issues" data-icon="octicon-issue-opened"
+                        data-size="large" data-show-count="true" aria-label="Issue NetroScript/TeamFortressMatchHistoryAnalyzer on GitHub">Issue</a>
+                </p>
+            </section>
+    </main>
+    <script src="js/main.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>
