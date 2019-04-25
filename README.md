@@ -6,7 +6,7 @@ TeamFortressMatchHistoryAnalyzer
 Introduction
 ------------
 
-Since the EU GDPR changes you can view your personal data on Steam. This includes information related to TF2, this information also includes the Match History of all Matches you played in Casual or Competitive. This is a tool which allows you to analyze this data after you download it as HTML page (yourself, a helper script is included on the page.) [own one](https://netroscript.github.io/TeamFortressMatchHistoryAnalyzer/).  
+Since the EU GDPR changes you can view your personal data on Steam. This includes information related to TF2, this information also includes the Match History of all Matches you played in Casual or Competitive. This is a tool which allows you to analyze this data after you download it as HTML page (yourself, a helper script is included on the page.). You can use it directly online [here](https://netroscript.github.io/TeamFortressMatchHistoryAnalyzer/) (or you just download it, do whatever you want).  
 
 Selection of Screenshots
 ------------------------
@@ -35,7 +35,7 @@ Usage
 
 Just download this as a folder, and open index.html in your browser.  
 
-Or try it out [online](https://netroscript.github.io/Input-Button-Sprite-Generator/)!
+Or try it out [online](https://netroscript.github.io/TeamFortressMatchHistoryAnalyzer/)!
 
 
 Credits
