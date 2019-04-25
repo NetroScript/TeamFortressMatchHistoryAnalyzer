@@ -828,7 +828,7 @@ function renderStatistics() {
 
 
 
-//Misc data extracted by trying or from the Itemtxt / Item Schema / TF2 Localisation - for more see misc.json
+//Misc data extracted by trial + error or from the Itemtxt / Item Schema / TF2 Localisation
 
 let compmapnames = ["cp_process_final", "cp_gorge", "cp_badlands", "cp_vanguard", "cp_granary", "cp_foundry", "cp_gullywash_final1", "cp_snakewater_final1", "koth_viaduct", "cp_sunshine", "cp_metalworks", "pl_swiftwater_final1", "pl_badwater", "ctf_turbine"]
 
