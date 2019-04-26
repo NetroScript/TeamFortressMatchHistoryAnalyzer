@@ -374,11 +374,10 @@ function renderStatistics() {
         let multiclass = (match.classes_played.toString(2).match(/1/g) || []) != 1;
         for (let i = 0; i < 10; i++) {
             if (((match.classes_played >> i) % 2 != 0) && i > 0) {
-                if (multiclass) {
-                    classestotal[i - 1]++;
-                } else {
+                classestotal[i - 1]++;
+                if (!multiclass) {
                     classessolo[i - 1]++;
-                }
+                } 
             }
         }
 
