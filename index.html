@@ -19,6 +19,7 @@
                     <h2>Upload your downloaded HTML Page with the button below:</h2>
                     <input class="button centercontent" id="upload" type=file accept="text/html">
                     <h5>This tool requires a modern browser to work (ES6)</h5>
+					<h5>You find information on how to get the HTML page you need on the bottom of this page.</h5>
                 </div>
 
             </section>
@@ -28,7 +29,7 @@
                     <div class="centercontent">
                         <canvas id="generalGames" width="600" height="400"></canvas>
                     </div>
-                    <h2 id="mode">The following statistics will be MyM Competitive only. And still include abandoned games (as
+                    <h2 id="mode">The following statistics will be MyM Competitive only. And they still include abandoned games (as
                         long as there is data for them)</h2>
                     <h3>Games Played per Day:</h3>
                     <div class="centercontent">
@@ -38,7 +39,7 @@
                     <div class="centercontent">
                         <canvas id="gamesTime" width="600" height="400"></canvas>
                     </div>
-                    <h3>Classes played (out circle is total, inner if the class was played as the only one):</h3>
+                    <h3>Classes played (outer circle is total, inner if the class was played as the only one):</h3>
                     <div class="centercontent">
                         <canvas id="classesPlayed" width="600" height="600"></canvas>
                     </div>
@@ -199,7 +200,7 @@ clear = setInterval(()=>{
     }
 }, 1200)
                     </pre> 
-                    Wait until all information is loaded (the script stops automatically, it needs about 8 minutes for me). Then save the website (using STRG+S) and import that saved HTML page into this script. Should you want to cancel the automatic page load type the following in console:
+                    Wait until all information is loaded (the script stops automatically, it needs about 8 minutes for me). Then save the website (using CTRL+S) and import that saved HTML page into this script. Should you want to cancel the automatic page load type the following in console:
                     <pre>
 clearInterval(clear);
                     </pre> 

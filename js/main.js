@@ -1,5 +1,5 @@
-let uploadButton = document.querySelector(".upload .button")
-let switchButton = document.getElementById("switchmode")
+let uploadButton = document.querySelector(".upload .button");
+let switchButton = document.getElementById("switchmode");
 let uploaded = false;
 uploadButton.addEventListener("change", uploadHTML, false);
 let competitive = [];
@@ -7,16 +7,16 @@ let casual = [];
 let current_is_comp = true;
 let canswitch = false;
 
-let ChartDays
-let ChartGeneral
-let ChartTimes
-let ChartClasses
-let ChartMaps
-let ChartMedals
-let ChartLocations
-let ChartMatchDurations
-let ChartQueueDurations
-let ChartMMR
+let ChartDays;
+let ChartGeneral;
+let ChartTimes;
+let ChartClasses;
+let ChartMaps;
+let ChartMedals;
+let ChartLocations;
+let ChartMatchDurations;
+let ChartQueueDurations;
+let ChartMMR;
 
 switchButton.onclick = ()=>{
 
@@ -27,10 +27,10 @@ switchButton.onclick = ()=>{
         current_is_comp = !current_is_comp;
 
         if(current_is_comp){
-            document.getElementById("mode").innerHTML = "The following statistics will be MyM Competitive only. And still include abandoned games (as long as there is data for them)"
+            document.getElementById("mode").innerHTML = "The following statistics will be MyM Competitive only. And they still include abandoned games (as long as there is data for them)";
             switchButton.innerHTML = "Switch Competitive with Casual";
         } else {
-            document.getElementById("mode").innerHTML = "The following statistics will be Casual only. (Mistakes may happen because this was made mainly for the competitive mode)"
+            document.getElementById("mode").innerHTML = "The following statistics will be Casual only. (Mistakes may happen because this was made mainly for the competitive mode)";
             switchButton.innerHTML = "Switch Casual with Competitive";
         }
 
@@ -38,7 +38,7 @@ switchButton.onclick = ()=>{
     }
 
 
-}
+};
 
 function uploadHTML(event) {
     if (!uploaded) {
@@ -46,7 +46,7 @@ function uploadHTML(event) {
         current_is_comp = true;
         competitive = [];
         casual = [];
-        document.querySelector(".upload h2").innerHTML = "Upload your downloaded HTML Page with the button below: (pending)"
+        document.querySelector(".upload h2").innerHTML = "Upload your downloaded HTML Page with the button below: (pending)";
 
 
         let file = event.target.files[0];
@@ -54,10 +54,10 @@ function uploadHTML(event) {
 
         let reader = new FileReader();
 
-        reader.onload = (function (text) {
+        reader.onload = (function () {
             return function (e) {
 
-                parseHTML(e.target.result)
+                parseHTML(e.target.result);
             };
         })(file);
 
@@ -69,10 +69,14 @@ function uploadHTML(event) {
 
 function getEntry(string, substring) {
     try {
-        return string.split("<td>" + substring + "</td><td>")[1].split("</td>")[0]
+        return string.split("<td>" + substring + "</td><td>")[1].split("</td>")[0];
     } catch (e) {
         return undefined;
     }
+}
+
+function getDate(string, substring){
+    return new Date(Date.parse(getEntry(string, substring)) || Date.parse((getEntry(string, substring) || "    ").split(" ").slice(0,2).join(" ")));
 }
 
 function parseHTML(html) {
@@ -91,18 +95,18 @@ function parseHTML(html) {
         obj.conclusion = match.indexOf("<td>Reached Conclusion</td><td>Yes") != -1;
         obj.is_comp = match.indexOf("Type</td><td>Competitive") != -1;
         obj.map_index = parseInt(getEntry(match, "Map Index"));
-        obj.creationtime = new Date(getEntry(match, "Match Creation Time"));
+        obj.creationtime = getDate(match, "Match Creation Time");
         obj.ip = getEntry(match, "Match IP");
         obj.match_port = parseInt(getEntry(match, "Match Port"));
         obj.datacenter = getEntry(match, "Datacenter");
         obj.match_size = parseInt(getEntry(match, "Match Size"));
-        obj.join_time = new Date(getEntry(match, "Join Time"));
+        obj.join_time = getDate(match, "Join Time");
         obj.party_id_at_join = getEntry(match, "Party ID at Join");
         obj.team_at_join = getEntry(match, "Team at Join");
         obj.ping_estimate_at_join = parseInt(getEntry(match, "Ping Estimate at Join"));
         obj.joined_after_match_start = "Yes" == getEntry(match, "Joined After Match Start");
         obj.time_in_queue = parseInt(getEntry(match, "Time in Queue"));
-        obj.match_end_time = new Date(getEntry(match, "Match End Time"));
+        obj.match_end_time = getDate(match, "Match End Time");
         obj.season_id = getEntry(match, "Season ID");
         obj.match_status = parseInt(getEntry(match, "Match Status"));
         obj.match_duration = parseInt(getEntry(match, "Match Duration"));
@@ -113,7 +117,7 @@ function parseHTML(html) {
         obj.win_reason = parseInt(getEntry(match, "Win Reason"));
         obj.match_flags = getEntry(match, "Match Flags");
         obj.match_included_bots = parseInt(getEntry(match, "Match Included Bots"));
-        obj.time_left_match = new Date(getEntry(match, "Time Left Match"));
+        obj.time_left_match = getDate(match, "Time Left Match");
         obj.result_partyid = getEntry(match, "Result PartyID");
         obj.result_team = parseInt(getEntry(match, "Result Team"));
         obj.result_score = parseInt(getEntry(match, "Result Score"));
@@ -134,7 +138,7 @@ function parseHTML(html) {
         obj.healing_medal = parseInt(getEntry(match, "Healing Medal"));
         obj.support_medal = parseInt(getEntry(match, "Support Medal"));
         obj.leave_reason = parseInt(getEntry(match, "Leave Reason"));
-        obj.connection_time = new Date(getEntry(match, "Connection Time"));
+        obj.connection_time = getDate(match, "Connection Time");
         obj.id = matchid;
 
         if (obj.is_comp) {
@@ -152,7 +156,7 @@ function parseHTML(html) {
 
 
 function displayPercent(value, context) {
-    let total = context.dataset.data.reduce((total, num) => total + num)
+    let total = context.dataset.data.reduce((total, num) => total + num);
     return context.chart.data.labels[context.dataIndex] + " - " + (value / total * 100).toFixed(1) + `% (${value})`;
 }
 
@@ -161,23 +165,23 @@ function renderStatistics() {
     uploaded = false;
     document.querySelector(".upload h2").innerHTML = "Upload your downloaded HTML Page with the button below: (finished)";
 
-    Chart.defaults.global.defaultFontColor = 'white';
+    Chart.defaults.global.defaultFontColor = "white";
     //Chart.defaults.global.responsive = false;
 
     //If we had charts before, we try to clean / destroy them
     try {
-        ChartDays.destroy()
-        ChartGeneral.destroy()
-        ChartTimes.destroy()
-        ChartClasses.destroy()
-        ChartMaps.destroy()
-        ChartMedals.destroy()
-        ChartLocations.destroy()
-        ChartMatchDurations.destroy()
-        ChartQueueDurations.destroy()
-        ChartMMR.destroy()
+        ChartDays.destroy();
+        ChartGeneral.destroy();
+        ChartTimes.destroy();
+        ChartClasses.destroy();
+        ChartMaps.destroy();
+        ChartMedals.destroy();
+        ChartLocations.destroy();
+        ChartMatchDurations.destroy();
+        ChartQueueDurations.destroy();
+        ChartMMR.destroy();
     } catch(e){
-        console.log("There were no Chart instances yet, so couldn't destroy them")
+        console.log("There were no Chart instances yet, so couldn't destroy them");
     }
 
     ChartGeneral = new Chart("generalGames", {
@@ -198,7 +202,7 @@ function renderStatistics() {
                 ]
             }]
         }
-    })
+    });
 
     let days = [0, 0, 0, 0, 0, 0, 0];
 
@@ -226,7 +230,7 @@ function renderStatistics() {
 
 
     let mapstotal = [];
-    let mapnames = []
+    let mapnames = [];
 
 
     let medals = [
@@ -360,14 +364,14 @@ function renderStatistics() {
             "val": 0,
             "total": 0
         }
-    }
+    };
     
     competitive.forEach((match) => {
         if (!isNaN(match.creationtime.getTime())) {
-            days[(((match.creationtime.getDay() - 1) % 7) + 7) % 7]++
+            days[(((match.creationtime.getDay() - 1) % 7) + 7) % 7]++;
 
 
-            amount_per_hour[match.creationtime.getHours() * 60 / minutestep + match.creationtime.getMinutes() / minutestep << 0]++
+            amount_per_hour[match.creationtime.getHours() * 60 / minutestep + match.creationtime.getMinutes() / minutestep << 0]++;
         }
 
 
@@ -392,16 +396,16 @@ function renderStatistics() {
         }
 
 
-        medals[match.damage_medal || 0][0]++
-        medals[match.healing_medal || 0][1]++
-        medals[match.score_medal || 0][2]++
-        medals[match.support_medal || 0][3]++
-        medals[match.kills_medal || 0][4]++
+        medals[match.damage_medal || 0][0]++;
+        medals[match.healing_medal || 0][1]++;
+        medals[match.score_medal || 0][2]++;
+        medals[match.support_medal || 0][3]++;
+        medals[match.kills_medal || 0][4]++;
 
 
         let servername = match.datacenter;
         if (servername == "") {
-            servername = "Unavailable"
+            servername = "Unavailable";
         }
         let serverindex = serverlocationnames.indexOf(servername);
         if (serverindex == -1) {
@@ -414,13 +418,13 @@ function renderStatistics() {
 
         if (match.match_duration > 0) {
             let t = match.match_duration / 60;
-            playtimes[Math.min(Math.floor(t / 10), 6)]++
+            playtimes[Math.min(Math.floor(t / 10), 6)]++;
         }
 
 
         if (match.time_in_queue > 0) {
             let t = match.time_in_queue / 60;
-            queuetimes[Math.min(Math.floor(t / 10), 6)]++
+            queuetimes[Math.min(Math.floor(t / 10), 6)]++;
         }
 
 
@@ -459,7 +463,7 @@ function renderStatistics() {
                 ["Kills", "kills"],
                 ["Deaths", "deaths"],
                 ["Score", "result_score"]
-            ]
+            ];
 
             for(let i in pairs){
                 textbaseddata["average"+pairs[i][0]].val += match[pairs[i][1]];
@@ -555,11 +559,11 @@ function renderStatistics() {
         }
 
 
-    })
+    });
 
     let averages = [
         "Damage", "Kills", "Deaths", "Score", "Heals", "Ping", "MMRGain", "MMRLoss", "Queue", "Wait"
-    ]
+    ];
 
     for(let i in averages){
         textbaseddata["average"+averages[i]].val /= textbaseddata["average"+averages[i]].total;
@@ -569,7 +573,7 @@ function renderStatistics() {
 
     let turn_into_minutes = [
         "longestQueue", "shortestQueue", "averageQueue", "longestWait", "shortestWait", "averageWait"
-    ]
+    ];
 
     for(let i in turn_into_minutes){
         textbaseddata[turn_into_minutes[i]].val = textbaseddata[turn_into_minutes[i]].val / 60;
@@ -604,7 +608,7 @@ function renderStatistics() {
             },
 
         }
-    })
+    });
 
 
 
@@ -636,22 +640,22 @@ function renderStatistics() {
                 display: false
             }
         }
-    })
+    });
 
     ChartClasses = new Chart("classesPlayed", {
         type: "pie",
         data: {
             "labels": bit_classes,
             "datasets": [{
-                    label: "Class Distribution",
-                    data: classestotal,
-                    backgroundColor: ["#db3936", "#db9336", "#d5db36", "#99db36", "#36db67", "#36dbd2", "#366ddb", "#5936db", "#b736db"]
-                },
-                {
-                    label: "Classes played solo",
-                    data: classessolo,
-                    backgroundColor: ["#db3936", "#db9336", "#d5db36", "#99db36", "#36db67", "#36dbd2", "#366ddb", "#5936db", "#b736db"]
-                }
+                label: "Class Distribution",
+                data: classestotal,
+                backgroundColor: ["#db3936", "#db9336", "#d5db36", "#99db36", "#36db67", "#36dbd2", "#366ddb", "#5936db", "#b736db"]
+            },
+            {
+                label: "Classes played solo",
+                data: classessolo,
+                backgroundColor: ["#db3936", "#db9336", "#d5db36", "#99db36", "#36db67", "#36dbd2", "#366ddb", "#5936db", "#b736db"]
+            }
             ]
         },
         options: {
@@ -661,7 +665,7 @@ function renderStatistics() {
                 }
             }
         }
-    })
+    });
 
 
     ChartMaps = new Chart("mapsPlayed", {
@@ -684,7 +688,7 @@ function renderStatistics() {
             },
             sort: true
         }
-    })
+    });
 
 
 
@@ -694,38 +698,38 @@ function renderStatistics() {
         data: {
             "labels": ["Damage", "Healing", "Score", "Support", "Kills"],
             "datasets": [{
-                    label: "Bronze Medal",
-                    data: medals[1],
-                    backgroundColor: [
-                        "#db6436",
-                        "#96db36",
-                        "#36dbc5",
-                        "#3836db",
-                        "#db36d5"
-                    ]
-                },
-                {
-                    label: "Silver Medal",
-                    data: medals[2],
-                    backgroundColor: [
-                        "#a34927",
-                        "#72a828",
-                        "#2ebaa7",
-                        "#2a28a3",
-                        "#b72db2"
-                    ]
-                },
-                {
-                    label: "Gold Medal",
-                    data: medals[3],
-                    backgroundColor: [
-                        "#77341b",
-                        "#50771b",
-                        "#208779",
-                        "#1b1a72",
-                        "#8c2388"
-                    ]
-                }
+                label: "Bronze Medal",
+                data: medals[1],
+                backgroundColor: [
+                    "#db6436",
+                    "#96db36",
+                    "#36dbc5",
+                    "#3836db",
+                    "#db36d5"
+                ]
+            },
+            {
+                label: "Silver Medal",
+                data: medals[2],
+                backgroundColor: [
+                    "#a34927",
+                    "#72a828",
+                    "#2ebaa7",
+                    "#2a28a3",
+                    "#b72db2"
+                ]
+            },
+            {
+                label: "Gold Medal",
+                data: medals[3],
+                backgroundColor: [
+                    "#77341b",
+                    "#50771b",
+                    "#208779",
+                    "#1b1a72",
+                    "#8c2388"
+                ]
+            }
             ]
         }
     });
@@ -751,7 +755,7 @@ function renderStatistics() {
             },
             sort: true
         }
-    })
+    });
 
 
     ChartMatchDurations = new Chart("matchDurations", {
@@ -774,7 +778,7 @@ function renderStatistics() {
             },
             sort: true
         }
-    })
+    });
 
     ChartQueueDurations = new Chart("queueDurations", {
         type: "pie",
@@ -796,7 +800,7 @@ function renderStatistics() {
             },
             sort: true
         }
-    })
+    });
 
     ChartMMR = new Chart("mmrChanges", {
         type: "pie",
@@ -818,7 +822,7 @@ function renderStatistics() {
             },
             sort: true
         }
-    })
+    });
 }
 
 
@@ -829,7 +833,7 @@ function renderStatistics() {
 
 //Misc data extracted by trial + error or from the Itemtxt / Item Schema / TF2 Localisation
 
-let compmapnames = ["cp_process_final", "cp_gorge", "cp_badlands", "cp_vanguard", "cp_granary", "cp_foundry", "cp_gullywash_final1", "cp_snakewater_final1", "koth_viaduct", "cp_sunshine", "cp_metalworks", "pl_swiftwater_final1", "pl_badwater", "ctf_turbine"]
+let compmapnames = ["cp_process_final", "cp_gorge", "cp_badlands", "cp_vanguard", "cp_granary", "cp_foundry", "cp_gullywash_final1", "cp_snakewater_final1", "koth_viaduct", "cp_sunshine", "cp_metalworks", "pl_swiftwater_final1", "pl_badwater", "ctf_turbine"];
 
 
 let tf2maplist = {
@@ -945,10 +949,10 @@ let tf2maplist = {
     "109": "pd_monster_bash",
     "110": "koth_slasher",
     "111": "pd_cursed_cove_event"
-}
+};
 
 
-let bit_classes = ["Scout", "Sniper", "Soldier", "Demo", "Medic", "Heavy", "Pyro", "Spy", "Engineer"]
+let bit_classes = ["Scout", "Sniper", "Soldier", "Demo", "Medic", "Heavy", "Pyro", "Spy", "Engineer"];
 
 
 
@@ -963,7 +967,7 @@ function randomColorArray(size) {
         [a[i], a[j]] = [a[j], a[i]];
     }
     while (size > 0) {
-        out.push(a[size % a.length])
+        out.push(a[size % a.length]);
         size--;
     }
     return out;

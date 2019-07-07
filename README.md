@@ -45,3 +45,7 @@ Following Libraries are included and used:
 
 * [Chart.js](https://www.chartjs.org/) - Licensed under the MIT License
 * [chartjs-plugin-datalabels](https://chartjs-plugin-datalabels.netlify.com/) - Licensed under the MIT License
+
+Additionally the TF2 icon from [http://www.teamfortress.com/](http://www.teamfortress.com/) was used as favicon.
+
+All trademarks belong to their respective owners.
