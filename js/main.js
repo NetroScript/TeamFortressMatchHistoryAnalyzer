@@ -565,19 +565,39 @@ function renderStatistics() {
         "Damage", "Kills", "Deaths", "Score", "Heals", "Ping", "MMRGain", "MMRLoss", "Queue", "Wait"
     ];
 
-    for(let i in averages){
-        textbaseddata["average"+averages[i]].val /= textbaseddata["average"+averages[i]].total;
-    }
-
-    textbaseddata.averageKD.val = textbaseddata.averageKills.val/textbaseddata.averageDeaths.val;
+    let total = [
+        "Damage", "Kills", "Deaths", "Heals", "MMRGain", "MMRLoss", "Queue", "Wait"
+    ];
 
     let turn_into_minutes = [
         "longestQueue", "shortestQueue", "averageQueue", "longestWait", "shortestWait", "averageWait"
     ];
 
-    for(let i in turn_into_minutes){
+    for (let i in turn_into_minutes) {
         textbaseddata[turn_into_minutes[i]].val = textbaseddata[turn_into_minutes[i]].val / 60;
     }
+
+
+    for(let i in averages){
+
+        if(total.includes(averages[i])){
+            let average_id = "average" + averages[i];
+            if (document.getElementById("total" + averages[i]) == null) {
+                let con = document.getElementById(average_id).parentElement;
+                let new_element = document.getElementById(average_id).parentElement.parentElement.insertBefore(con.cloneNode(true), con.nextElementSibling);
+                new_element.innerHTML = new_element.innerHTML.replace("Average", "Total").replace("average", "total");
+                if(turn_into_minutes.includes(average_id)){
+                    new_element.innerHTML = new_element.innerHTML.replace("minutes", "hours");
+                }
+            }
+            document.getElementById("total" + averages[i]).innerHTML = "" + Math.round((turn_into_minutes.includes(average_id) ? textbaseddata[average_id].val/60 : textbaseddata[average_id].val) * 100) / 100;
+        }
+
+        textbaseddata["average"+averages[i]].val /= textbaseddata["average"+averages[i]].total;
+    }
+
+    textbaseddata.averageKD.val = textbaseddata.averageKills.val/textbaseddata.averageDeaths.val;
+
 
     for(let x in textbaseddata){
         document.getElementById(x).innerHTML = ""+Math.round(textbaseddata[x].val*100)/100;
